@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "matanzas": "index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/fredybawa/matanzas/issues"
   },
-  "homepage": "https://github.com/fredybawa/matanzas#readme"
+  "homepage": "https://github.com/fredybawa/matanzas#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "findit": "^2.0.0",
+    "glob": "^7.0.0",
+    "html-minifier": "^1.2.0",
+    "is-there": "^4.3.1",
+    "through2": "^2.0.1"
+  },
+  "devDependencies": {}
 }
