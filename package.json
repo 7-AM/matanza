@@ -7,7 +7,7 @@
     "matanzas": "index.js"
   },
   "scripts": {
-    "start": "./index.js"
+    "start": "./index.js -s ./*.html -d ./dist"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,6 @@
   "homepage": "https://github.com/fredybawa/matanzas#readme",
   "dependencies": {
     "commander": "^2.9.0",
-    "findit": "^2.0.0",
-    "glob": "^7.0.0",
     "html-minifier": "^1.2.0",
     "is-there": "^4.3.1",
     "through2": "^2.0.1"

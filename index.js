@@ -5,18 +5,8 @@ var path = require('path');
 var fs = require('fs');
 var minify = require('html-minifier').minify;
 var through2 = require('through2');
-var findit = require('findit');
-var glob = require('glob');
 var isThere = require("is-there");
 var filename, fileMinified, filepath, destination;
-
-program
-  .version('1.0.0')
-  .usage('[options] <DIR ...>')
-  .option('-s, --source <dir>', 'Source directory', handleGlogFromCommander, '-s')
-  .option('-d, --destination <dir>', 'Destination directory', handleGlogFromCommander, '-d')
-  .parse(process.argv);
-
 
 function handleGlogFromCommander(data, type) {
   var sourceIdx = program.rawArgs.indexOf('-s') + 1;
@@ -41,7 +31,6 @@ function isValid() {
 }
 
 if (isValid()) {
-
   if (program.source.length === 1) {
     var sourcepath = path.resolve(__dirname, program.source.join(''));
 
@@ -57,9 +46,8 @@ if (isValid()) {
 
   }
 
-  if (!isThere(path.resolve(__dirname, program.destination.join('')))) {
-    console.log('Destination folder not found: ' + program.destination);
-    return;
+  if (!isThere( path.resolve(__dirname, program.destination.join('')) )) {
+    fs.mkdirSync(path.resolve(__dirname, program.destination.join('')), '0776');
   }
 
   destination = path.resolve(__dirname, program.destination.join(''));
@@ -91,3 +79,10 @@ function minifyTransform(chunk, enc, callback) {
 
   callback();
 }
+
+program
+  .version('1.0.0')
+  .usage('[options] <DIR ...>')
+  .option('-s, --source <dir>', 'Source directory', handleGlogFromCommander, '-s')
+  .option('-d, --destination <dir>', 'Destination directory', handleGlogFromCommander, '-d')
+  .parse(process.argv);
