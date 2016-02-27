@@ -42,8 +42,6 @@ if (isValid()) {
 
   destinationPath = path.join(appRoot, program.destination.join(''));
 
-  console.log(destinationPath);
-
   if (program.source.length === 1) {
     var sourcepath = path.join(appRoot, program.source.join(''));
 
@@ -64,12 +62,9 @@ if (isValid()) {
   }
 
   for (var i = 0, len = program.source.length; i < len; i++) {
-
     filepath = path.join(appRoot, program.source[i]);
     filename_arr = path.normalize(program.source[i]).split('/');
     filename = filename_arr[filename_arr.length-1];
-
-    console.log(filepath);
 
     fs.createReadStream(filepath)
     .pipe(through2( minifyTransform ))
