@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "matanzas": "index.js"
+    "matanza": "index.js"
   },
   "scripts": {
-    "start": "./index.js -s ./*.html -d ./dist"
+    "start": "./index.js -h"
   },
   "repository": {
     "type": "git",

@@ -8,6 +8,13 @@ var through2 = require('through2');
 var isThere = require("is-there");
 var filename, fileMinified, filepath, destination;
 
+program
+  .version('1.0.0')
+  .usage('[options] <DIR ...>')
+  .option('-s, --source <dir>', 'Source directory', handleGlogFromCommander, '-s')
+  .option('-d, --destination <dir>', 'Destination directory', handleGlogFromCommander, '-d')
+  .parse(process.argv);
+
 function handleGlogFromCommander(data, type) {
   var sourceIdx = program.rawArgs.indexOf('-s') + 1;
   var destIdx = program.rawArgs.indexOf('-d');
@@ -79,10 +86,3 @@ function minifyTransform(chunk, enc, callback) {
 
   callback();
 }
-
-program
-  .version('1.0.0')
-  .usage('[options] <DIR ...>')
-  .option('-s, --source <dir>', 'Source directory', handleGlogFromCommander, '-s')
-  .option('-d, --destination <dir>', 'Destination directory', handleGlogFromCommander, '-d')
-  .parse(process.argv);
