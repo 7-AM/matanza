@@ -7,7 +7,7 @@ var minify = require('html-minifier').minify;
 var through2 = require('through2');
 var isThere = require("is-there");
 var appRoot = require('app-root-dir').get();
-var filename, fileMinified, filepath, destination;
+var filename, fileMinified, filepath, destinationPath;
 
 program
   .version('1.0.0')
@@ -39,8 +39,11 @@ function isValid() {
 }
 
 if (isValid()) {
+
+  destinationPath = path.join(appRoot, program.destination.join(''));
+
   if (program.source.length === 1) {
-    var sourcepath = path.resolve(__dirname, program.source.join(''));
+    var sourcepath = path.join(appRoot, program.source.join(''));
 
     if (!isThere(sourcepath)) {
       console.log('File not found: ' + program.source.join(''));
@@ -54,13 +57,10 @@ if (isValid()) {
 
   }
 
-  console.log(appRoot);
-
-  if (!isThere( path.join(appRoot, program.destination.join('')) )) {
-    fs.mkdirSync(path.join(appRoot, program.destination.join('')), '0776');
+  if (!isThere( destinationPath)) {
+    fs.mkdirSync( destinationPath, '0776');
   }
 
-  destination = path.join(appRoot, program.destination.join(''));
 
   for (var i = 0, len = program.source.length; i < len; i++) {
 
@@ -70,7 +70,7 @@ if (isValid()) {
 
     fs.createReadStream(filepath)
     .pipe(through2( minifyTransform ))
-    .pipe(fs.createWriteStream(destination + '/' + filename));
+    .pipe(fs.createWriteStream(destinationPath + '/' + filename));
 
   }
 }
