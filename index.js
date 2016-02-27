@@ -6,6 +6,7 @@ var fs = require('fs');
 var minify = require('html-minifier').minify;
 var through2 = require('through2');
 var isThere = require("is-there");
+var appRoot = require('app-root-dir').get();
 var filename, fileMinified, filepath, destination;
 
 program
@@ -53,15 +54,17 @@ if (isValid()) {
 
   }
 
-  if (!isThere( path.resolve(__dirname, program.destination.join('')) )) {
-    fs.mkdirSync(path.resolve(__dirname, program.destination.join('')), '0776');
+  console.log(appRoot);
+
+  if (!isThere( path.join(appRoot, program.destination.join('')) )) {
+    fs.mkdirSync(path.join(appRoot, program.destination.join('')), '0776');
   }
 
-  destination = path.resolve(__dirname, program.destination.join(''));
+  destination = path.join(appRoot, program.destination.join(''));
 
   for (var i = 0, len = program.source.length; i < len; i++) {
 
-    filepath = path.resolve(__dirname, program.source[i]);
+    filepath = path.join(appRoot, program.source[i]);
     filename_arr = path.normalize(program.source[i]).split('/');
     filename = filename_arr[filename_arr.length-1];
 
