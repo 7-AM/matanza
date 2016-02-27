@@ -1,5 +1,5 @@
 {
-  "name": "matanzas",
+  "name": "matanza",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/fredybawa/matanzas.git"
   },
   "author": "Alfredo Monteiro",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fredybawa/matanzas/issues"
   },
