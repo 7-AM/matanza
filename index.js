@@ -1,89 +1,73 @@
-#!/usr/bin/env node
-
-var program = require('commander');
+var _ = require('lodash');
 var path = require('path');
 var fs = require('fs');
-var minify = require('html-minifier').minify;
+var glob = require('glob');
+var htmlMinify = require('html-minifier').minify;
 var through2 = require('through2');
 var isThere = require("is-there");
 var appRoot = require('app-root-dir').get();
-var filename, fileMinified, filepath, destinationPath;
 
-program
-  .version('1.0.0')
-  .usage('[options] <DIR ...>')
-  .option('-s, --source <dir>', 'Source directory', handleGlogFromCommander, '-s')
-  .option('-d, --destination <dir>', 'Destination directory', handleGlogFromCommander, '-d')
-  .parse(process.argv);
+module.exports = {
+  minify: minify
+};
 
-function handleGlogFromCommander(data, type) {
-  var sourceIdx = program.rawArgs.indexOf('-s') + 1;
-  var destIdx = program.rawArgs.indexOf('-d');
-  var source = [];
 
-  if (type === '-s') {
-    for (var i = sourceIdx, len = destIdx; i < len; i++) {
-      source.push(program.rawArgs[i]);
+function minify(options) {
+  var files = [], destPath, filename;
+  var config = {
+    dest: './dist',
+    source: [],
+    concat: false,
+    minify: {
+      collapseWhitespace: true,
+      removeComments: true
     }
-  } else if (type === '-d') {
-    for (var j = destIdx + 1, length = program.rawArgs.length; j < length; j++) {
-      source.push(program.rawArgs[j]);
-    }
+  };
+
+  _.extend(config, options);
+
+  destPath = path.join(appRoot, config.dest);
+
+  files = config.source.reduce(function (result, file) {
+    return result.concat(
+      glob.sync(path.join(appRoot, file))
+    );
+  }, []);
+
+  if (!isThere(destPath)) {
+    fs.mkdirSync(destPath, '0776');
   }
 
-  return source;
-}
-
-function isValid() {
-  return program.source.length > 0 && program.destination.length > 0;
-}
-
-if (isValid()) {
-
-  destinationPath = path.join(appRoot, program.destination.join(''));
-
-  if (program.source.length === 1) {
-    var sourcepath = path.join(appRoot, program.source.join(''));
-
-    if (!isThere(sourcepath)) {
-      console.log('File not found: ' + program.source.join(''));
+  if (files.length === 1) {
+    if (!isThere(files.join(''))) {
+      console.log('File not found: ' + files.join(''));
       return;
     }
 
-    if (fs.lstatSync(sourcepath).isDirectory()) {
+    if (fs.lstatSync(files.join('')).isDirectory()) {
       console.log('Source option must be a file');
       return;
     }
-
   }
 
-  if (!isThere( destinationPath)) {
-    fs.mkdirSync( destinationPath, '0776');
+  for (var i = 0, len = files.length; i < len; i++) {
+    filename = files[i].split('/').pop();
+
+    fs.createReadStream(files[i])
+      .pipe(through2( minifyTransform ))
+      .pipe(fs.createWriteStream(destPath + '/' + filename));
   }
 
-  for (var i = 0, len = program.source.length; i < len; i++) {
-    filepath = path.join(appRoot, program.source[i]);
-    filename_arr = path.normalize(program.source[i]).split('/');
-    filename = filename_arr[filename_arr.length-1];
+  function minifyTransform(chunk, enc, callback) {
+    var fileMinified = '';
 
-    fs.createReadStream(filepath)
-    .pipe(through2( minifyTransform ))
-    .pipe(fs.createWriteStream(destinationPath + '/' + filename));
+    fileMinified = htmlMinify(chunk.toString(), {
+      collapseWhitespace: config.minify.collapseWhitespace,
+      removeComments: config.minify.removeComments
+    });
 
+    this.push(fileMinified);
+
+    callback();
   }
-}
-else {
-  console.log('Source option (-s) and Destination option (-d) are mandatory');
-  return;
-}
-
-function minifyTransform(chunk, enc, callback) {
-  fileMinified = minify(chunk.toString(), {
-    collapseWhitespace: true,
-    removeComments: true
-  });
-
-  this.push(fileMinified);
-
-  callback();
 }

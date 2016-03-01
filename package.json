@@ -1,13 +1,13 @@
 {
   "name": "matanza",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "bin": {
-    "matanza": "index.js"
+    "matanza": "./bin/matanza.js"
   },
   "scripts": {
-    "start": "./index.js -h"
+
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,10 @@
   "dependencies": {
     "app-root-dir": "^1.0.2",
     "commander": "^2.9.0",
+    "glob": "^7.0.0",
     "html-minifier": "^1.2.0",
     "is-there": "^4.3.1",
+    "lodash": "^4.5.1",
     "through2": "^2.0.1"
   },
   "devDependencies": {}
