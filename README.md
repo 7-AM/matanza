@@ -31,17 +31,17 @@ Moving all the partials templates from a AngularJs project folder to a distribut
  ### Result
 
  ```
- -> Not minified                  | -> html minified
-+-- app/                          | +-- dist/
-    +-- login/                      |   +-- js/
-    |   +-- login.controller.js     |   |   +-- bundle.js
-    |   +-- login.html              |   +-- css/
-    +-- users/                      |   |   +-- style.css   
-    |   +-- user.controller.html    |   +-- partials
-    |   +-- user.html               |   |   +-- login.html
-    +-- task/                       |   |   +-- user.html
-    |   +-- task.controller.js      |   |   +-- task.html
-    |   +-- task.html               |   |...
+ -> Not minified                    | -> html minified
++-- app/                            | +-- dist/
+    +-- login/                      |     +-- js/
+    |   +-- login.controller.js     |     |   +-- bundle.js
+    |   +-- login.html              |     +-- css/
+    +-- users/                      |     |   +-- style.css   
+    |   +-- user.controller.html    |     +-- partials
+    |   +-- user.html               |     |   +-- login.html
+    +-- task/                       |     |   +-- user.html
+    |   +-- task.controller.js      |     |   +-- task.html
+    |   +-- task.html               |     |...
  ```
 
 ### Command Line Interface:
