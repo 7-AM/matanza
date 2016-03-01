@@ -3,8 +3,6 @@ Matanza
 
 Matanza minifies your html files to whatever directory you want, without applying concatination to a single file.
 
-Matanza is a simple tool that grabs all the your html and minify it to a wherever you want without concatenation.
-
 ### Usage:
 
 Install Matanza:
@@ -13,8 +11,8 @@ Install Matanza:
 $ npm i matanza -g
 ```
 
-### NPM Scripts:
-## Examples
+## NPM Scripts:
+### Examples
 
 Moving all the partials templates from a AngularJs project folder to a distribution or build folder
 
@@ -28,7 +26,7 @@ Moving all the partials templates from a AngularJs project folder to a distribut
 }
  ```
 
- ### Result
+### Result
 
  ```
  -> Not minified                    | -> html minified
