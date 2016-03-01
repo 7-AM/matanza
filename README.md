@@ -12,8 +12,9 @@ $ npm i matanza -g
 ```
 
 ### NPM Scripts:
+## Examples
 
-Moving all the partials templates from a angularjs project folder to a distribution or build folder
+Moving all the partials templates from a AngularJs project folder to a distribution or build folder
 
  ```json
 {
@@ -26,13 +27,16 @@ Moving all the partials templates from a angularjs project folder to a distribut
  ```
 
 ### Command Line Interface:
-$ matanza <options>
-  . -h help
-  . -s Source folder
-  . -d Destination folder
+```
+Usage: matanza [options] <Dir>
 
-```bash
-$ matanza -s <Dir ...> -d <Dir>
+Standard Options:
+
+       --help, -h  Help
+
+     --source, -s  Source directory. Supports globbing
+
+--destination, -d  Destination directory
 ```
 
 ### Programmatic usage:
@@ -43,7 +47,7 @@ Install Matanza:
 $ npm i matanza --save
 ```
 
-After that you can require it in your code and use it like this:
+After that you can require it in your code and use it:
 
 ```javascript
 var matanza = require('matanza');
