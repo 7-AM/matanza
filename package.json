@@ -1,6 +1,6 @@
 {
   "name": "matanza",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/fredybawa/matanzas/issues"
   },
-  "homepage": "https://github.com/fredybawa/matanzas#readme",
+  "homepage": "https://github.com/fredybawa/matanza#readme",
   "dependencies": {
     "app-root-dir": "^1.0.2",
     "commander": "^2.9.0",

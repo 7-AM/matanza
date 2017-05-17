@@ -20,7 +20,8 @@ function minify(options) {
     concat: false,
     minify: {
       collapseWhitespace: true,
-      removeComments: true
+      removeComments: true,
+      ignoreCustomFragments: [ /\{\{[\s\S]*?\}\}/ ]
     }
   };
 
