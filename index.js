@@ -21,7 +21,7 @@ function minify(options) {
     minify: {
       collapseWhitespace: true,
       removeComments: true,
-      ignoreCustomFragments: [ /\{\{[\s\S]*?\}\}/ ]
+      ignoreCustomFragments:  [/{{.*?}}/]
     }
   };
 
